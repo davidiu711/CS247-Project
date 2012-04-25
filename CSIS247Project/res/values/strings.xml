@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, CSIS247ProjectActivity!</string>
+    <string name="app_name">GoWhere?</string>
+
+    <!-- Main Screen Button Labels -->
+    <string name="event_button_label">Events</string>
+    <string name="create_event_button_label">Create Event</string>
+    
+    
+    <!-- Event Creation Strings -->
+    <string name="Create_Event_Name">Event Name</string>
+    <string name="Create_Event_Description">Description</string>
+    <string name="Create_Event_Address">Address</string>
+    <string name="Create_Event_Time">Time of Event</string>
+    <string name="Submit_Button">Submit</string>
+    
+    
+    <!-- EventList Item Strings -->
+    <string name="Image_Content_Description">Event Icon</string>
+
+</resources>

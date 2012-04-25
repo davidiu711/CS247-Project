@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/Text_Event_Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Create_Event_Name" />
+
+    <EditText
+        android:id="@+id/Edit_Event_Name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text">
+        
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/Text_Event_Description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Create_Event_Description" />
+
+    <EditText
+        android:id="@+id/Edit_Event_Description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine" />
+
+    <TextView
+        android:id="@+id/Text_Event_Address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Create_Event_Address" />
+
+    <EditText
+        android:id="@+id/Edit_Event_Address"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress" />
+
+    <TextView
+        android:id="@+id/Text_Event_Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Create_Event_Time" />
+
+    <EditText
+        android:id="@+id/Edit_Event_Time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time" />
+
+    <Button
+        android:id="@+id/button_submit_event_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Submit_Button" />
+
+</LinearLayout>
