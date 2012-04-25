@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <TextView android:id="@+id/Text_EventActivity_Title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    
+    <TextView android:id="@+id/Text_EventActivity_Time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    
+    <TextView android:id="@+id/Text_EventActivity_Distance"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    
+    <TextView android:id="@+id/Text_EventActivity_Description"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+    
+    <!-- Debug key 
+		android:apiKey="0SSIxJTKJsHtfGyTOT1qCzix0QDQzP8j0RuAmmw"  -->
+    <com.google.android.maps.MapView
+        android:id="@+id/Event_Map"
+        android:clickable="true"
+        android:apiKey="0SSIxJTKJsHtfGyTOT1qCzix0QDQzP8j0RuAmmw"      
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />  
+
+</LinearLayout>
