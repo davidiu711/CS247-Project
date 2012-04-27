@@ -18,15 +18,17 @@ public class GpsService extends Service {
 
     /** the most recent time the GPS was started */
     private long startTime;
-    
+
     /** the most recent time the GPs was stopped */
     private long stopTime; 
-    
+
     /**location mananger for the GPS */
     private LocationManager locationManager;
-    
+
     /** the class that has the GPS framework */
     GPSListener gpsListener;
+
+    NetworkListener networkListener;
 
     @Override
     public void onCreate() {
@@ -34,33 +36,37 @@ public class GpsService extends Service {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
     }
-    
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {       
         super.onStartCommand(intent, flags, startId);
-        
+
         if (gpsListener == null) {
             gpsListener = new GPSListener();
             gpsListener.start();
-            
         }
-        
+
+        if (networkListener == null) {
+            networkListener = new NetworkListener();
+            networkListener.start();
+        }
+
         return START_STICKY;
     }
 
-    
+
 
     @Override
     public IBinder onBind(Intent intent) {
         // TODO Auto-generated method stub
         return null;
     }
-    
-    
+
+
 
     private class GPSListener implements LocationListener {
 
-        
+
         private boolean isRunning;
 
 
@@ -68,7 +74,7 @@ public class GpsService extends Service {
         public void start() {
             Log.d("GPS", "Start GPS");
             startTime = System.currentTimeMillis();
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 1, this);
             isRunning = true;
         }
 
@@ -79,25 +85,21 @@ public class GpsService extends Service {
             locationManager.removeUpdates(this);
             isRunning = false;
         }
-    
+
         @Override
         public void onLocationChanged(Location l) {
             Log.d("GPS", "OnLocationChange");
             locationChanged(l);
-            
-            /* start a timer to wait for 5 minutes to start the GPs again */
-            if (startTime + 30000 < System.currentTimeMillis()) {
-                stop();
-                new Timer().run();
-            }
-            
+
+
+
         }
 
-        
+
         public boolean isRunning() {
             return isRunning;
         }
-        
+
         @Override
         public void onProviderDisabled(String provider) {
             Log.d("GPS", "provider disabled");
@@ -118,6 +120,50 @@ public class GpsService extends Service {
         }
     }
 
+    private class NetworkListener implements LocationListener {
+        private boolean isRunning;
+        private long lastSwitchedOn;
+
+        public void start() {
+            Log.d("GPS", "Starting Network Provider");
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 
+                            200, 0, this);
+            isRunning = true;
+            this.lastSwitchedOn = System.currentTimeMillis();
+        }
+
+        public void stop() {
+            Log.d("GPS", "Stopping Network Provider");
+            locationManager.removeUpdates(this);
+            isRunning = false;
+        }
+
+        public void onLocationChanged(Location location) {
+            Log.d("GPS", "Network Provider location changed");
+            locationChanged(location);
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Log.d("GPS", "Network Provider Disabled");
+        }
+        @Override
+        public void onProviderEnabled(String provider) {
+            this.start();
+            isRunning = true;
+        }
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+        public boolean isRunning() {
+            return this.isRunning;
+        }
+
+        public long getLastSwitchedOn() {
+            return this.lastSwitchedOn;
+        }
+    }
+
     private void locationChanged(Location l) {
 
         //save location in shared preferences for Event class to access when it is created.
@@ -135,7 +181,7 @@ public class GpsService extends Service {
 
         this.getApplicationContext().sendBroadcast(i);
     }
-    
+
     /* a separate thread to wait 5 minutes and then restart the GPS */
     private class Timer implements Runnable {
 
