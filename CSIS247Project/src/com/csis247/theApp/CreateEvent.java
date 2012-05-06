@@ -16,6 +16,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputFilter;
 import android.text.Layout;
 import android.text.format.DateFormat;
 
@@ -32,7 +33,7 @@ import android.widget.TimePicker;
 public class CreateEvent extends Activity implements OnClickListener{
 
     private Context context;
-    
+
     /** Event name input */
     private EditText eventName;
 
@@ -50,24 +51,30 @@ public class CreateEvent extends Activity implements OnClickListener{
 
     /** the file path of the selected image */
     private String selectedImagePath;
-    
+
+    /** widgets for displaying and picking time */
     private TextView mTimeDisplay;
     private Button mPickTime;
+
+    /** integers representing the hour and minute*/
     private int mHour;
     private int mMinute;
 
+    /** widgets for displaying and picking the date */
     private TextView mDateDisplay;
     private Button mPickDate;
-    private Integer mYear;
-    private Integer mMonth;
-    private Integer mDay;
+
+    /** integers relating to the date */
+    private int mYear;
+    private int mMonth;
+    private int mDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.createevent);
-        
+
         context = getApplicationContext();
 
         intitalizeWidgets();
@@ -85,29 +92,28 @@ public class CreateEvent extends Activity implements OnClickListener{
 
         picture = (Button) findViewById(R.id.Button_Create_Event_Picture);
         picture.setOnClickListener(this);
-        
+
+        /* button and textview for selecting and displaying event time */
         mTimeDisplay = (TextView) findViewById(R.id.Text_Create_Chosen_Time);
         mPickTime = (Button) findViewById(R.id.Button_Create_Event_Time);
-
         mPickTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(0);
             }
         });
-        
-        
-        // capture our View elements
+
+
+        /* button and textview for selecting and displaying event date */
         mDateDisplay = (TextView) findViewById(R.id.Text_Create_Chosen_Date);
         mPickDate = (Button) findViewById(R.id.Button_Create_Event_Date);
-
-        // add a click listener to the button
         mPickDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(1);
             }
         });
-        
-         final Calendar c = Calendar.getInstance();
+
+        /* setting the current time and date as the initially displayed time and date */
+        final Calendar c = Calendar.getInstance();
         mHour = c.get(Calendar.HOUR_OF_DAY);
         mMinute = c.get(Calendar.MINUTE);
         mYear = c.get(Calendar.YEAR);
@@ -118,7 +124,7 @@ public class CreateEvent extends Activity implements OnClickListener{
         updateDisplay();
 
     }
-    
+
     // the callback received when the user "sets" the time in the dialog
     private TimePickerDialog.OnTimeSetListener mTimeSetListener =
                     new TimePickerDialog.OnTimeSetListener() {
@@ -141,7 +147,8 @@ public class CreateEvent extends Activity implements OnClickListener{
             updateDisplay();
         }
     };
-
+  
+    /* defines what dialog gets set depending on if the time or date button was pressed */
     @Override
     protected Dialog onCreateDialog(int id) {
         switch (id) {
@@ -156,30 +163,32 @@ public class CreateEvent extends Activity implements OnClickListener{
         return null;
     }
 
+    /* updates the time or date to reflect the most currently chosen values */
     private void updateDisplay() {
         mTimeDisplay.setText(
                         new StringBuilder()
                         .append(pad(mHour)).append(":")
                         .append(pad(mMinute)));
-        
-       //TODO change date format based on region. get rid of time.
-        
+
+        //TODO change date format based on region. Get rid of time.
+
         StringBuilder string = new StringBuilder()
-                    // Month is 0 based so add 1
-                    .append(mMonth + 1).append("-")
-                    .append(mDay).append("-")
-                    .append(mYear);
+        // Month is 0 based so add 1
+        .append(mMonth + 1).append("-")
+        .append(mDay).append("-")
+        .append(mYear);
         SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
-        
-            try {               
-                Date date = format.parse(string.toString());
-                mDateDisplay.setText(date.toLocaleString());
-            } catch (ParseException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }     
+
+        try {               
+            Date date = format.parse(string.toString());
+            mDateDisplay.setText(date.toLocaleString());
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }     
     }
 
+    // used for formating the time 
     private static String pad(int c) {
         if (c >= 10)
             return String.valueOf(c);
@@ -197,7 +206,7 @@ public class CreateEvent extends Activity implements OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
-        //TODO repopulate edit tests with store texts and re-display picture (if any).
+        //TODO repopulate edit texts with stored text and re-display picture (if any).
     }
 
     @Override
@@ -206,7 +215,7 @@ public class CreateEvent extends Activity implements OnClickListener{
 
         switch(v.getId()) {
         case R.id.Button_Create_Event_Picture :
-            
+
             //open a menu to pick a picture.
             Intent intent = new Intent();
             intent.setType("image/*");
