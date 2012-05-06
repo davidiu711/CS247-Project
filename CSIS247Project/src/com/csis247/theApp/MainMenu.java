@@ -19,8 +19,6 @@ public class MainMenu extends Activity implements OnClickListener {
     
     Context context;
     
-    boolean firstTime;
-    
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,8 +30,6 @@ public class MainMenu extends Activity implements OnClickListener {
         setContentView(R.layout.main);
         
         intitalizeWidgets();
-        
-        firstTime = true;
         
         Log.d("GPS", "Start GPS Service");
         /*start GPS service. This service listens to the GPS and broadcasts updates
@@ -64,10 +60,8 @@ public class MainMenu extends Activity implements OnClickListener {
         switch( v.getId()){
             case R.id.button_eventlist:
                 
-                Intent eventlist = new Intent(this, EventList.class);
-                eventlist.putExtra("firstTime", firstTime);
-                startActivity(eventlist);
-                firstTime = false;
+                Intent eventSearch = new Intent(this, EventSearch.class);
+                startActivity(eventSearch);
                 break;
             case R.id.button_createEventActivity:
                 Intent createEvent = new Intent (this, CreateEvent.class);
