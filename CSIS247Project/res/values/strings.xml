@@ -14,10 +14,13 @@
     <string name="Create_Event_Description">Description</string>
     <string name="Create_Event_Address">Address</string>
     <string name="Create_Event_Time">Time of Event</string>
+    <string name="Browse_Picture_Button">Browse Pictures</string>
     <string name="Submit_Button">Submit</string>
     
     
     <!-- EventList Item Strings -->
     <string name="Image_Content_Description">Event Icon</string>
-
+    
+    <!-- Menu Labels -->
+	<string name="menu_refresh">Refresh</string>
 </resources>
