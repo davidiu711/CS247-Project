@@ -5,7 +5,7 @@
     <string name="app_name">GoWhere?</string>
 
     <!-- Main Screen Button Labels -->
-    <string name="event_button_label">Events</string>
+    <string name="event_button_label">Find Events</string>
     <string name="create_event_button_label">Create Event</string>
     
     
@@ -14,6 +14,9 @@
     <string name="Create_Event_Description">Description</string>
     <string name="Create_Event_Address">Address</string>
     <string name="Create_Event_Time">Time of Event</string>
+    <string name="Create_Event_Change_Time_Button">Change Time</string>
+    <string name="Create_Event_Date">Event Date</string>
+    <string name="Create_Event_Change_Date_Button">Change Date</string>
     <string name="Browse_Picture_Button">Browse Pictures</string>
     <string name="Submit_Button">Submit</string>
     
@@ -23,4 +26,30 @@
     
     <!-- Menu Labels -->
 	<string name="menu_refresh">Refresh</string>
+	
+	<!-- Event Search Strings -->
+	<string name="Search_Where">Where are the events you\'re looking for?</string>
+	<string name="Search_Near">Near&#8230;</string>
+	<string-array name="location_array">
+        <item>My Current Location</item>
+        <item>A Specific Address</item>
+        <item>Other</item>       
+    </string-array>
+	<string name="Search_Specify_Location">Please specify a location.</string> 
+	<string name="Search_Specify_Address">Please specify an address.</string>   
+	
+	<string name="Search_Distance">How far away from there would you like to search?</string>  
+    <string-array name="distance_array">
+        <item>1 km</item>
+        <item>2 km</item>
+        <item>5 km</item> 
+        <item>Other</item> 
+    </string-array>
+    <string name="Search_Specify_Distance">Please specify a distance in</string>
+    
+    <string name="Search_Change_Time_Button">Pick a different time</string>
+    <string name="Search_Change_Date_Button">Pick a different date</string>
+    <string name="Search_Find_Events_Button">Find Events</string>
+    
+	
 </resources>

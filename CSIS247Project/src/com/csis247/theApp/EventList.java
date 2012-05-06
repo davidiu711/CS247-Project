@@ -33,15 +33,11 @@ public class EventList extends Activity {
         setContentView(R.layout.eventlist);
 
         context = getApplicationContext();
-        Intent fromMainMenu = getIntent();
-        boolean firstTime = fromMainMenu.getBooleanExtra("firstTime", false);
 
         events = (ListView) findViewById(R.id.Events_ListView);
 
         //start an asynchronous process to talk to the server and download events.
-        if (firstTime) {
             new RefreshEvents(context, this).execute();
-        }
     }
 
     @Override
