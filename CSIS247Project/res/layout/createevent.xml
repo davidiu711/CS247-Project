@@ -34,7 +34,9 @@
         android:id="@+id/Edit_Create_Event_Description"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"
+        android:maxLength="800"
+        android:maxLines="15" />
 
     <TextView
         android:id="@+id/Text_Create_Event_Address"

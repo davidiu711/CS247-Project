@@ -1,10 +1,13 @@
 package com.csis247.theApp;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
@@ -31,6 +34,8 @@ public class MainMenu extends Activity implements OnClickListener {
         
         intitalizeWidgets();
         
+        setLocale();
+        
         Log.d("GPS", "Start GPS Service");
         /*start GPS service. This service listens to the GPS and broadcasts updates
          * containing the latitude and longitude of the phone's location.
@@ -50,6 +55,15 @@ public class MainMenu extends Activity implements OnClickListener {
         Button createEvent = (Button) findViewById(R.id.button_createEventActivity);
         createEvent.setOnClickListener(this);
         
+    }
+    
+    /* sets the default country of the device into shared preferences for future use */
+    private void setLocale() {
+        SharedPreferences locale = getApplicationContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        Editor edit = locale.edit();
+        
+        edit.putString("country", Locale.getDefault().getISO3Country());
+        edit.commit();
     }
 
     /** There are two buttons on the main screen. This method starts the activities
