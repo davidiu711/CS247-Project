@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
-    
-    <Button 
-		android:id="@+id/button_eventlist"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" 
-		android:text="@string/event_button_label" />
-    
-    <Button 
-		android:id="@+id/button_createEventActivity"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content" 
-		android:text="@string/create_event_button_label" />
-    
+    android:background="@drawable/bg" >
 
-</LinearLayout>
+    <ImageButton
+        android:id="@+id/button_eventlist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="31dp"
+        android:background="@null"
+        android:src="@drawable/butfind" />
+
+    <ImageButton
+        android:id="@+id/button_createEventActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/button_eventlist"
+        android:layout_alignParentLeft="true"
+        android:background="@null"
+        android:src="@drawable/butnew" />
+
+</RelativeLayout>
