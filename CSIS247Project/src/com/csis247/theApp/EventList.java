@@ -60,8 +60,8 @@ public class EventList extends Activity {
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
         loadEventList();
 
@@ -82,9 +82,12 @@ public class EventList extends Activity {
          */
         ArrayList<ConcurrentHashMap<String, String>> listItems 
         = new ArrayList<ConcurrentHashMap<String, String>>();
+        
+        int numOfEvents = numberOfEvents.getInt("number", 0);
+        System.out.println(numOfEvents);
 
         //add a new hash map to listItems for each event downloaded
-        for (Integer i = 0; i < numberOfEvents.getInt("number", 0); i += 1){
+        for (Integer i = 0; i < numOfEvents; i += 1){
 
             /*get the sharedPreference corresponding to each event. Key should be
              * the string representation of the Integer i.
@@ -96,7 +99,7 @@ public class EventList extends Activity {
             singleEventMap.put("title", eventInfo.getString("title", "PROBLEM"));
             singleEventMap.put("time", eventInfo.getString("time", "PROBLEM"));
             singleEventMap.put("distance", eventInfo.getString("distance", "PROBLEM"));
-
+            System.out.println(singleEventMap.get("title"));
             listItems.add(singleEventMap);
         }
 

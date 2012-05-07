@@ -1,9 +1,15 @@
 package com.csis247.theApp;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -178,6 +184,36 @@ public class EventSearch extends Activity {
 
                 searchEdit.putString("time", mTimeDisplay.getText().toString());
                 searchEdit.putString("date", mDateDisplay.getText().toString());
+                
+                try {
+                    String link = "http://i.cs.hku.hk/~stlee/gowhere.php";
+        			JSONArray result = new JSONArray(Utils.getData(link));
+        			SharedPreferences numberOfEvents = context.getSharedPreferences("numberOfEvents", Context.MODE_PRIVATE);
+        			SharedPreferences.Editor numberOfEventsEditor = numberOfEvents.edit();
+        			numberOfEventsEditor.putInt("number", result.length());
+        			numberOfEventsEditor.commit();
+        			for (int i = 0; i < result.length(); i++) {
+        				JSONObject row = result.getJSONObject(i);
+        				SharedPreferences preference = context.getSharedPreferences(Integer.toString(i), Context.MODE_PRIVATE);
+        				SharedPreferences.Editor editor = preference.edit();
+        				editor.putString("title", row.getString("name"));
+        				editor.putString("time", row.getString("time"));
+        				editor.commit();
+        			}
+        		} catch (NumberFormatException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		} catch (ClientProtocolException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		} catch (IOException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		} catch (JSONException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+                
 
                 Intent eventList = new Intent(context, EventList.class);
                 startActivity(eventList);
