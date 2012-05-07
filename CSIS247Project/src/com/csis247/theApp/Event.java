@@ -66,8 +66,6 @@ public class Event extends MapActivity {
         
         initializeWidgets();
         
-        initalizeLocation();
-        
         eventInfo = context.getSharedPreferences(position.toString()
                         , Context.MODE_PRIVATE);
         
@@ -90,6 +88,7 @@ public class Event extends MapActivity {
     protected void onResume() {
         super.onResume();
         
+        initalizeLocation();
         
         //Register a broadcast receiver to receive location updates from the background service
         IntentFilter intentFilter = new IntentFilter("com.csis247.theApp.customLocationUpdate");
@@ -138,7 +137,7 @@ public class Event extends MapActivity {
         return false;
     }
     
-    /* updates the map to display current user location and evnet location. */
+    /* updates the map to display current user location and event location. */
     private void updateMap() {
         
         //clear the current overlays
