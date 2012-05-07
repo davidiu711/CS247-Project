@@ -50,33 +50,43 @@ public class Communicator {
         double lat = currentLocation.getFloat("lat", 0);
         double lon = currentLocation.getFloat("lon", 0);
 
-        
+        JSONArray result = null;
 
-        //TODO talk to the server, load the downloaded information into shared preferences. Use storeDataInSharedPreferences in loop.
-        //use lat, lon class variables as the user's location to send to the server.
+        try {
+                    String link = "http://i.cs.hku.hk/~stlee/gowhere.php";
+                    result = new JSONArray(Utils.getData(link));
+                    SharedPreferences numberOfEvents = callingContext.getSharedPreferences("numberOfEvents", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor numberOfEventsEditor = numberOfEvents.edit();
+                    numberOfEventsEditor.putInt("number", result.length());
+                    numberOfEventsEditor.commit();
+                    for (int i = 0; i < result.length(); i++) {
+                        JSONObject row = result.getJSONObject(i);
+                        SharedPreferences preference = callingContext.getSharedPreferences(Integer.toString(i), Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preference.edit();
+                        editor.putString("title", row.getString("name"));
+                        editor.putString("time", row.getString("time"));
+                        editor.commit();
+                    }
+                } catch (NumberFormatException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (ClientProtocolException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
 
-
-        /*
-         * For (total number of events) { 
-        SharedPreferences sharedPreferences = callingContext.getSharedPreferences(PUT LOOP NUMBER HERE, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putInt("ID", 0);
-        editor.putString("title", "B-Day Party"); <--change these abritarty values
-        editor.putString("description", "It's a birthday party");
-        editor.putString("time", "7pm");
-        editor.putString("distance", "1 mile");
-
-        //TODO want to also put the lat and lon from the downloaded event into the shared preferences via the editor.
-
-        editor.commit();
-        }*/
 
         /*after receiving and processing events, load the numberOfEvents shared preference with the total number of events downloaded.*/
         SharedPreferences sharedPreferences = callingContext.getSharedPreferences("numberOfEvents", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         //the number 1 is a placeholder for debugging. replace with the total number of events.
-        editor.putInt("number", 1);
+        editor.putInt("number", result.length());
         editor.commit();
 
 

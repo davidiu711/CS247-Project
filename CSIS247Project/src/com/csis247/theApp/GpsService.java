@@ -17,13 +17,13 @@ import android.util.Log;
 
 public class GpsService extends Service {
 
-    /**location mananger for the GPS */
+    /**location manager for the GPS */
     private LocationManager locationManager;
 
     /** the class that has the GPS framework */
     GPSListener gpsListener;
 
-    /** class that houses the network listner framework */
+    /** class that houses the network listener framework */
     NetworkListener networkListener;
 
     /** a boolean that indicates if the service just started */
@@ -164,7 +164,7 @@ public class GpsService extends Service {
 
     private void locationChanged(Location l) {
         Log.d("GpsService","Location Changed ");
-        Log.d("GpsService","Provide is " + l.getProvider());
+        Log.d("GpsService","Provider is " + l.getProvider());
         Log.d("GpsService","Accuracy is " + l.getAccuracy());
 
         //if the service just started immediately save the first location point that comes in.
@@ -215,6 +215,7 @@ public class GpsService extends Service {
         if (gps != null && network != null) {
             if (gps.getAccuracy() < network.getAccuracy()) {
                 Log.d("GpsService","GPS is more accurate");
+                if (gps.getAccuracy() < 100) {
                 //save location in shared preferences for Event class to access when it is created.
                 Context context = getApplicationContext();
                 SharedPreferences location = context.getSharedPreferences("location", Context.MODE_PRIVATE);
@@ -228,8 +229,12 @@ public class GpsService extends Service {
                 i.putExtra("lat", gps.getLatitude());
                 i.putExtra("lon", gps.getLongitude());
                 this.getApplicationContext().sendBroadcast(i);
+                } else {
+                    Log.d("GpsService","GPS accuracy is more than 100m");
+                }
             } else {
                 Log.d("GpsService","Network is more accurate");
+                if (network.getAccuracy() < 100) {
                 //save location in shared preferences for Event class to access when it is created.
                 Context context = getApplicationContext();
                 SharedPreferences location = context.getSharedPreferences("location", Context.MODE_PRIVATE);
@@ -243,6 +248,9 @@ public class GpsService extends Service {
                 i.putExtra("lat", network.getLatitude());
                 i.putExtra("lon", network.getLongitude());
                 this.getApplicationContext().sendBroadcast(i);
+                } else {
+                    Log.d("GpsService","network accuracy is more than 100m");
+                }
             }
             gps = null;
             network = null;
