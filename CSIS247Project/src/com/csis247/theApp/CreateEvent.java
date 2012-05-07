@@ -1,10 +1,14 @@
 package com.csis247.theApp;
 
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import org.apache.http.client.ClientProtocolException;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -68,6 +72,11 @@ public class CreateEvent extends Activity implements OnClickListener{
     private int mYear;
     private int mMonth;
     private int mDay;
+    
+    private String event_name;
+    private String event_description;
+    private String event_address;
+    private String event_datetime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -227,6 +236,28 @@ public class CreateEvent extends Activity implements OnClickListener{
 
             /* TODO send sumbitted data to server. Use getData function in Utils class.
              *  Use selectedImagePath to access the picture file for upload. */
+        	Utils com = new Utils();
+        	try {
+        		String link, temp;
+            	event_name = URLEncoder.encode(eventName.getText().toString(), "UTF-8");
+        		event_description = URLEncoder.encode(eventDescription.getText().toString(), "UTF-8");
+        		event_address = URLEncoder.encode(eventAddress.getText().toString(), "UTF-8");
+        		temp = mYear+"-"+mMonth+"-"+mDay+" "+mHour+":"+mMinute+":00";
+        		event_datetime = URLEncoder.encode(temp, "UTF-8");
+        		System.out.println("datetime: "+event_datetime);
+        		link = "http://i.cs.hku.hk/~stlee/gowhere.php?event_name="+event_name+"&event_description="+event_description+"&event_address="+event_address+"&event_datetime="+event_datetime;
+        		System.out.println("link: "+link);
+        		com.getData(link);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
             break;
         }
 
