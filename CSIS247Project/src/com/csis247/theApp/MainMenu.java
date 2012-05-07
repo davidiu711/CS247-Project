@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class MainMenu extends Activity implements OnClickListener {
@@ -49,10 +50,10 @@ public class MainMenu extends Activity implements OnClickListener {
     
     /** find and set widgets for this view to be clickable */
     private void intitalizeWidgets() {
-        Button events = (Button) findViewById(R.id.button_eventlist);
+        ImageButton events = (ImageButton) findViewById(R.id.button_eventlist);
         events.setOnClickListener(this);
         
-        Button createEvent = (Button) findViewById(R.id.button_createEventActivity);
+        ImageButton createEvent = (ImageButton) findViewById(R.id.button_createEventActivity);
         createEvent.setOnClickListener(this);
         
     }
