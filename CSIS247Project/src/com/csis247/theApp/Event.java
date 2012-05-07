@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 public class Event extends MapActivity {
 
+	//comments
     /** the title of the event */
     TextView title;
     
