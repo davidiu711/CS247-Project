@@ -1,5 +1,9 @@
 package com.csis247.theApp;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -9,6 +13,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import org.json.*;
+
 
 public class Communicator {
 
@@ -34,6 +40,8 @@ public class Communicator {
         callingActivity = activity;
 
     }
+    
+    public Communicator(){}
 
     public void communicate() {
 
@@ -42,7 +50,7 @@ public class Communicator {
         double lat = currentLocation.getFloat("lat", 0);
         double lon = currentLocation.getFloat("lon", 0);
 
-
+        
 
         //TODO talk to the server, load the downloaded information into shared preferences. Use storeDataInSharedPreferences in loop.
         //use lat, lon class variables as the user's location to send to the server.

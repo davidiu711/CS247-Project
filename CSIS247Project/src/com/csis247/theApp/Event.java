@@ -1,6 +1,12 @@
 package com.csis247.theApp;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.apache.http.client.ClientProtocolException;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -124,7 +130,31 @@ public class Event extends MapActivity {
      * the shared preferences.
      */
     private void loadEventInfo(Integer position) {
-        
+       /* 
+    	try {
+            String link = "http://i.cs.hku.hk/~stlee/gowhere.php";
+			JSONArray result = new JSONArray(Utils.getData(link));
+			for (int i = 0; i < result.length(); i++) {
+				JSONObject row = result.getJSONObject(i);
+				SharedPreferences preference = context.getSharedPreferences(Integer.toString(i), Context.MODE_PRIVATE);
+				SharedPreferences.Editor editor = preference.edit();
+				editor.putString("title", row.getString("name"));
+				editor.putString("time", row.getString("time"));
+				editor.commit();
+			}
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
         title.setText(eventInfo.getString("title", "PROBLEM"));
         description.setText(eventInfo.getString("description", "PROBLEM"));
         time.setText(eventInfo.getString("time", "PROBLEM"));

@@ -236,7 +236,6 @@ public class CreateEvent extends Activity implements OnClickListener{
 
             /* TODO send sumbitted data to server. Use getData function in Utils class.
              *  Use selectedImagePath to access the picture file for upload. */
-        	Utils com = new Utils();
         	try {
         		String link, temp;
             	event_name = URLEncoder.encode(eventName.getText().toString(), "UTF-8");
@@ -247,7 +246,7 @@ public class CreateEvent extends Activity implements OnClickListener{
         		System.out.println("datetime: "+event_datetime);
         		link = "http://i.cs.hku.hk/~stlee/gowhere.php?event_name="+event_name+"&event_description="+event_description+"&event_address="+event_address+"&event_datetime="+event_datetime;
         		System.out.println("link: "+link);
-        		com.getData(link);
+        		Utils.getData(link);
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
