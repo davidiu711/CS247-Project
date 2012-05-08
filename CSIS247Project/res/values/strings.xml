@@ -4,7 +4,8 @@
     <string name="hello">Hello World, CSIS247ProjectActivity!</string>
     <string name="app_name">GoWhere?</string>
 
-    
+    <string name="Miles">miles</string>
+    <string name="Kilometers">kilometers</string>
     
     <!-- Main Screen Button Labels -->
     <string name="event_button_label">Find Events</string>
@@ -32,6 +33,7 @@
     
     <!-- Menu Labels -->
 	<string name="menu_refresh">Refresh</string>
+	<string name="menu_prefs">Preferences</string>
 	
 	
 	
@@ -65,5 +67,22 @@
     <string name="Search_Change_Date_Button">Pick a different date</string>
     <string name="Search_Find_Events_Button">Find Events</string>
     
+    
+    <!-- GPS off notification Strings -->
+    <string name="GPS_Notification_Ticker_Text">GoWhere? needs access to location.</string>
+    <string name="GPS_Notification_Content_Title">Location Information Desired</string>
+    <string name="GPS_Notification_Content_Text">For best results please turn on GPS.</string>
+    
+    <!-- Preference Menu Strings -->
+    <string name="Prefs_Location_Frequency_Title">Location Update Frequency</string>
+    <string name="Prefs_Location_Frequency_Summary">A higher frequency will consume more battery</string>
+    <string-array name="locationfrequency">
+        <item>2 minutes</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>60 minutes</item>       
+    </string-array>
 	
 </resources>

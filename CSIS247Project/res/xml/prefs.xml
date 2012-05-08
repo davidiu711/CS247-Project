@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<ListPreference
+	android:title="@string/Prefs_Location_Frequency_Title"
+	android:summary="@string/Prefs_Location_Frequency_Summary"
+	android:key="locationUpdateFrequency"
+	android:entries="@array/locationfrequency"
+	android:entryValues="@array/locationfrequencyvalues" 
+	android:defaultValue="5">
+</ListPreference>
+</PreferenceScreen>
