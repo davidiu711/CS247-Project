@@ -1,5 +1,9 @@
 package com.csis247.theApp;
 
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +15,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 //TODO store preference for location update interval and use it.
@@ -21,20 +26,26 @@ public class GpsService extends Service {
     private LocationManager locationManager;
 
     /** the class that has the GPS framework */
-    GPSListener gpsListener;
+    private GPSListener gpsListener;
 
     /** class that houses the network listener framework */
-    NetworkListener networkListener;
+    private NetworkListener networkListener;
 
     /** a boolean that indicates if the service just started */
-    boolean start = true;
+    private boolean start = true;
 
     /** a location object to store the most recent gps location */
-    Location gps = null;
+    private Location gps = null;
 
     /** a location object to store the most recent network location */
-    Location network = null;
+    private Location network = null;
 
+    private boolean gpsFirst = true;
+    
+    private boolean networkFirst = true;
+    
+    private NotificationManager notificationManager;
+    
 
 
 
@@ -42,6 +53,7 @@ public class GpsService extends Service {
     public void onCreate() {
         super.onCreate();
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
     }
 
@@ -104,7 +116,7 @@ public class GpsService extends Service {
         @Override
         public void onProviderDisabled(String provider) {
             Log.d("GpsService", " GPS provider disabled");
-            // TODO tell user that GPS is disabled with notification.
+            notifyOnLocationDisable();
         }
 
         @Override
@@ -194,6 +206,7 @@ public class GpsService extends Service {
                 gps = null;
             }
             network = l;
+            if (networkFirst) {
             Handler handle = new Handler();
             handle.postDelayed(new Runnable() {
                 public void run() {
@@ -202,10 +215,26 @@ public class GpsService extends Service {
                     locationChanged(gps);
                 }
             }, 30000);
+            networkFirst = false;
+            }
 
             //update the latest GPS provided location
         } else {
+            if (network != null && network.getAccuracy() == 100000) {
+                network = null;
+            }
             gps = l;
+            if (gpsFirst) {
+            Handler handle = new Handler();
+            handle.postDelayed(new Runnable() {
+                public void run() {
+                    network = new Location(LocationManager.NETWORK_PROVIDER);
+                    network.setAccuracy(100000);
+                    locationChanged(network);
+                }
+            }, 30000);
+            gpsFirst = false;
+            }
         }
 
         /* when a point from each provider has been collected, compare their accuracies then
@@ -256,14 +285,39 @@ public class GpsService extends Service {
             network = null;
             gpsListener.stop();
             networkListener.stop();
+            
+            SharedPreferences locationFrequency = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
             Handler h = new Handler();
             h.postDelayed(new Runnable() {
                 public void run() {
                     gpsListener.start();
                     networkListener.start();
+                    networkFirst = true;
+                    gpsFirst = true;
                 }
-            }, 300000); 
+            }, Integer.parseInt(locationFrequency.getString("locationUpdateFrequency", "3")) * 1000 * 60); 
+            Log.d("GpsService","Update Frequency is " + locationFrequency.getString("locationUpdateFrequency", "3") + " minutes");
 
         }
+    }
+    
+    /**
+     * Display a notification to the user if the GPS sensor is switched off
+     */
+    private void notifyOnLocationDisable() {
+        int icon = R.drawable.ic_launcher;
+        CharSequence tickerText = getResources().getString(R.string.GPS_Notification_Ticker_Text);
+        long when = System.currentTimeMillis();
+
+        Notification notification = new Notification(icon, tickerText, when);
+        notification.flags = Notification.FLAG_AUTO_CANCEL;
+        
+        Context context = getApplicationContext();
+        CharSequence contentTitle = getResources().getString(R.string.GPS_Notification_Content_Title);
+        CharSequence contentText = getResources().getString(R.string.GPS_Notification_Content_Text);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, new Intent(), 0);
+
+        notification.setLatestEventInfo(context, contentTitle, contentText, contentIntent);
+        notificationManager.notify(1, notification);
     }
 }

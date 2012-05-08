@@ -45,11 +45,34 @@ public class Communicator {
 
     public void communicate() {
 
-        //here are the lat long coordinates to send to the server.
+        /*
+         * here are the lat long coordinates to send to the server.
+         * 
+         * here are the lat long coordinates to send to the server.
+         * here are the lat long coordinates to send to the server.
+         * 
+         * here are the lat long coordinates to send to the server.
+         */
         SharedPreferences currentLocation = callingContext.getSharedPreferences("location", Context.MODE_PRIVATE);
         double lat = currentLocation.getFloat("lat", 0);
         double lon = currentLocation.getFloat("lon", 0);
-
+        
+        /*
+         * 
+         * here are the lat long coordinates to send to the server.
+         * 
+         * 
+         * here are the lat long coordinates to send to the server.
+         * 
+         * 
+         * here are the lat long coordinates to send to the server.
+         * 
+         * here are the lat long coordinates to send to the server.
+         * 
+         * 
+         * I hope that got your attention.
+         */
+        
         JSONArray result = null;
 
         try {
@@ -68,16 +91,12 @@ public class Communicator {
                         editor.commit();
                     }
                 } catch (NumberFormatException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 } catch (ClientProtocolException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 } catch (JSONException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
 
@@ -88,7 +107,6 @@ public class Communicator {
         //the number 1 is a placeholder for debugging. replace with the total number of events.
         editor.putInt("number", result.length());
         editor.commit();
-
 
         finishUp();
     }
