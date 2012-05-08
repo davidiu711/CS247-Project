@@ -24,6 +24,8 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class Event extends MapActivity {
@@ -217,6 +219,25 @@ public class Event extends MapActivity {
 
             }       
         }
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.preferencesmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle item selection
+        switch (item.getItemId()) {
+        case R.id.prefs:
+            Intent i = new Intent(this, Prefs.class);
+            startActivity(i);
+
+        }
+        return true;
     }
         
 }

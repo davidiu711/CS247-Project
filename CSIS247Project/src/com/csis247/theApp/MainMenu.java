@@ -12,6 +12,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -60,7 +62,7 @@ public class MainMenu extends Activity implements OnClickListener {
     
     /* sets the default country of the device into shared preferences for future use */
     private void setLocale() {
-        SharedPreferences locale = getApplicationContext().getSharedPreferences("preferences", Context.MODE_PRIVATE);
+        SharedPreferences locale = getApplicationContext().getSharedPreferences("locale", Context.MODE_PRIVATE);
         Editor edit = locale.edit();
         
         edit.putString("country", Locale.getDefault().getISO3Country());
@@ -84,6 +86,25 @@ public class MainMenu extends Activity implements OnClickListener {
                 break;
         }
         
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.preferencesmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle item selection
+        switch (item.getItemId()) {
+        case R.id.prefs:
+            Intent i = new Intent(this, Prefs.class);
+            startActivity(i);
+
+        }
+        return true;
     }
     
     

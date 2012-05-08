@@ -33,8 +33,12 @@ public class RefreshEvents extends AsyncTask<Void, Void, Void>{
     
     @Override
     protected void onPreExecute() {
-
-        //TODO clear shared preferences. I mean, delete the old stored events. 
+        
+        /* delete previously stored events */
+        int prefNum = callingContext.getSharedPreferences("numberOfEvents", Context.MODE_PRIVATE).getInt("number", 0);
+        for (int i = 0; i < prefNum; i += 1) {
+            callingContext.getSharedPreferences(Integer.toString(i), Context.MODE_PRIVATE).edit().clear().commit();
+        }
 
         /*show a dialog message that says "Loading..." while the
          * events are being downloaded. */

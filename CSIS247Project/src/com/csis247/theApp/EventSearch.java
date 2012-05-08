@@ -22,6 +22,8 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -89,10 +91,7 @@ public class EventSearch extends Activity {
 
         context = getApplicationContext();
         
-        intitalizeWidgets();
-
-        
-
+        intitalizeWidgets();      
     }
 
     /** find and set widgets in this view */
@@ -121,8 +120,8 @@ public class EventSearch extends Activity {
         distance = (Spinner) findViewById(R.id.Spinner_Distance);
         ArrayAdapter<CharSequence> distanceAdapter;
 
-        SharedPreferences count = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
-        String country =  count.getString("country", "PROBLEM");
+        SharedPreferences locale = context.getSharedPreferences("locale", Context.MODE_PRIVATE);
+        String country =  locale.getString("country", "PROBLEM");
         Log.d("EventSearch", "Country: " + country);
         if (country.equals("USA") || country.equals("GBR")) {
             distanceAdapter = ArrayAdapter.createFromResource(
@@ -254,12 +253,12 @@ public class EventSearch extends Activity {
 
         StringBuilder string = new StringBuilder()
         // Month is 0 based so add 1
+        .append(mYear).append("-")
         .append(mMonth + 1).append("-")
-        .append(mDay).append("-")
-        .append(mYear);
-        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+        .append(mDay);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-        try {               
+        try {   
             Date date = format.parse(string.toString());
             mDateDisplay.setText(date.toLocaleString());
         } catch (ParseException e) {
@@ -326,14 +325,14 @@ public class EventSearch extends Activity {
                 specifyDistance.setVisibility(View.VISIBLE);
                 editDistance.setVisibility(View.VISIBLE);
                 
-                SharedPreferences prefs = context.getSharedPreferences("preferences", Context.MODE_PRIVATE);
-                String country =  prefs.getString("country", "PROBLEM");
+                SharedPreferences locale = context.getSharedPreferences("locale", Context.MODE_PRIVATE);
+                String country =  locale.getString("country", "PROBLEM");
                 Log.d("EventSearch", "Country: " + country);
                 String units;
                 if (country.equals("USA") || country.equals("GBR")) {
-                    units = " miles.";
+                    units = " " + getResources().getString(R.string.Miles);
                 } else {
-                units = " kilometers.";
+                units = " " + getResources().getString(R.string.Kilometers);
                 }
                 specifyDistance.setText(getString(R.string.Search_Specify_Distance) + units);
                 distanceOther = true;
@@ -352,5 +351,24 @@ public class EventSearch extends Activity {
             // Do nothing.
         }
 
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.preferencesmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle item selection
+        switch (item.getItemId()) {
+        case R.id.prefs:
+            Intent i = new Intent(this, Prefs.class);
+            startActivity(i);
+
+        }
+        return true;
     }
 }
