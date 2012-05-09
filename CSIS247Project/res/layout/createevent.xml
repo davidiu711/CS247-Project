@@ -3,18 +3,21 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/LinearLayout_Create_Event"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-	android:background="@drawable/bgall">
+    android:layout_height="fill_parent"
+    android:background="@drawable/bgall"
+    android:orientation="vertical" >
 
     <TextView
         android:id="@+id/Text_Event_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Create_Event_Name" />
+        android:text="@string/Create_Event_Name"
+        android:textColor="@android:color/white"  />
 
     <EditText
         android:id="@+id/Edit_Event_Name"
@@ -29,7 +32,8 @@
         android:id="@+id/Text_Create_Event_Description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Create_Event_Description" />
+        android:text="@string/Create_Event_Description"
+		android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/Edit_Create_Event_Description"
@@ -43,7 +47,8 @@
         android:id="@+id/Text_Create_Event_Address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Create_Event_Address" />
+        android:text="@string/Create_Event_Address"
+		android:textColor="@android:color/white" />
 
     <EditText
         android:id="@+id/Edit_Create_Event_Address"
@@ -55,7 +60,8 @@
         android:id="@+id/Text_Create_Event_Time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Create_Event_Time" />
+        android:text="@string/Create_Event_Time"
+android:textColor="@android:color/white" />
     <TextView
         android:id="@+id/Text_Create_Chosen_Time"
         android:layout_width="wrap_content"
@@ -71,7 +77,8 @@
         android:id="@+id/Text_Create_Event_Date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Create_Event_Date" />
+        android:text="@string/Create_Event_Date"
+		android:textColor="@android:color/white" />
     
     <TextView
         android:id="@+id/Text_Create_Chosen_Date"
@@ -89,10 +96,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Browse_Picture_Button" />
-    
-     <Button
+
+    <Button
         android:id="@+id/Button_submit_event_info"
-        android:layout_width="wrap_content"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:text="@string/Submit_Button" />
 
