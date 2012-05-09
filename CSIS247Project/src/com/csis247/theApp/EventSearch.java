@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import org.apache.http.client.ClientProtocolException;
 import org.json.JSONArray;
@@ -244,36 +245,16 @@ public class EventSearch extends Activity {
 
     /* updates the time or date to reflect the most currently chosen values */
     private void updateDisplay() {
-        mTimeDisplay.setText(
-                        new StringBuilder()
-                        .append(pad(mHour)).append(":")
-                        .append(pad(mMinute)));
+        Calendar cal  = new GregorianCalendar();
+        cal.set(mYear, mMonth, mDay, mHour, mMinute);
+        
+        java.text.DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(getApplicationContext());
+        java.text.DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getApplicationContext());
+        
+        mTimeDisplay.setText(timeFormat.format(cal.getTime()));
 
-        //TODO change date format based on region. get rid of time.
+        mDateDisplay.setText(dateFormat.format(cal.getTime()));
 
-        StringBuilder string = new StringBuilder()
-        // Month is 0 based so add 1
-        .append(mYear).append("-")
-        .append(mMonth + 1).append("-")
-        .append(mDay);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
-        try {   
-            Date date = format.parse(string.toString());
-            mDateDisplay.setText(date.toLocaleString());
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } 
-
-    }
-
-    // used for formating the time 
-    private static String pad(int c) {
-        if (c >= 10)
-            return String.valueOf(c);
-        else
-            return "0" + String.valueOf(c);
     }
 
     /* defines what happened when a location spinner item is selected. New

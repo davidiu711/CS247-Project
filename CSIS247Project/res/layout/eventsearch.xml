@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         android:text="@string/Search_Where"
+        android:textColor="@android:color/white"
     />
     <Spinner 
         android:id="@+id/Spinner_Location"
@@ -48,6 +49,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         android:text="@string/Search_Distance"
+        android:textColor="@android:color/white" 
     />
     
     <Spinner 
@@ -90,14 +92,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Search_Change_Date_Button"/>
-    
-    <Button android:id="@+id/Button_Event_Search_findEvents"
+
+    <Button
+        android:id="@+id/Button_Event_Search_findEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Search_Find_Events_Button"/>
-    
-    
-    
+        android:text="@string/Search_Find_Events_Button" />
 
 </LinearLayout>
 </ScrollView>
