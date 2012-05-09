@@ -60,8 +60,8 @@ public class EventList extends Activity {
 
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onStart() {
+        super.onStart();
 
         loadEventList();
 

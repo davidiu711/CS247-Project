@@ -246,7 +246,7 @@ public class CreateEvent extends Activity implements OnClickListener{
         		temp = mYear+"-"+mMonth+"-"+mDay+" "+mHour+":"+mMinute+":00";
         		event_datetime = URLEncoder.encode(temp, "UTF-8");
         		System.out.println("datetime: "+event_datetime);
-        		link = "http://i.cs.hku.hk/~stlee/gowhere.php?event_name="+event_name+"&event_description="+event_description+"&event_address="+event_address+"&event_datetime="+event_datetime;
+        		link = "http://i.cs.hku.hk/~stlee/gowhere_create_event.php?event_name="+event_name+"&event_description="+event_description+"&event_address="+event_address+"&event_datetime="+event_datetime;
         		System.out.println("link: "+link);
         		Utils.getData(link);
 			} catch (NumberFormatException e) {
