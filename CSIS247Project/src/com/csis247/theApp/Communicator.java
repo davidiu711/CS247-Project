@@ -48,10 +48,7 @@ public class Communicator {
         /*
          * here are the lat long coordinates to send to the server.
          * 
-         * here are the lat long coordinates to send to the server.
-         * here are the lat long coordinates to send to the server.
          * 
-         * here are the lat long coordinates to send to the server.
          */
         SharedPreferences currentLocation = callingContext.getSharedPreferences("location", Context.MODE_PRIVATE);
         double lat = currentLocation.getFloat("lat", 0);
@@ -59,20 +56,23 @@ public class Communicator {
         
         /*
          * 
-         * here are the lat long coordinates to send to the server.
-         * 
-         * 
-         * here are the lat long coordinates to send to the server.
-         * 
-         * 
-         * here are the lat long coordinates to send to the server.
-         * 
-         * here are the lat long coordinates to send to the server.
+         * If we need to make queries to the server based on location, this is the most current location information.
          * 
          * 
          * I hope that got your attention.
          */
         
+        
+        
+        
+        /*
+         *
+         * 
+         * 
+         * 
+         * you should download the title, description, address, time, date, lat, lon, and country (of the user) of the event from the server.
+         * put each of those strings into the shared preference with those key values (lat, lon, time, date, title, etc.)
+         */
         JSONArray result = null;
 
         try {
@@ -88,6 +88,7 @@ public class Communicator {
                         SharedPreferences.Editor editor = preference.edit();
                         editor.putString("title", row.getString("name"));
                         editor.putString("time", row.getString("time"));
+                        
                         editor.commit();
                     }
                 } catch (NumberFormatException e) {
@@ -104,7 +105,6 @@ public class Communicator {
         /*after receiving and processing events, load the numberOfEvents shared preference with the total number of events downloaded.*/
         SharedPreferences sharedPreferences = callingContext.getSharedPreferences("numberOfEvents", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        //the number 1 is a placeholder for debugging. replace with the total number of events.
         editor.putInt("number", result.length());
         editor.commit();
 
@@ -119,7 +119,8 @@ public class Communicator {
         /* The reason there isn't an infinite loop is because in the Manifest the
          * EventList Activity has a launchMode=singleTask attribute.
          */
-        callingActivity.startActivity(new Intent(callingContext,
-                        EventList.class));
+        Intent listActivity = new Intent(callingContext,EventList.class);
+        listActivity.putExtra("loadingDone", true);
+        callingActivity.startActivity(listActivity);
     }
 }

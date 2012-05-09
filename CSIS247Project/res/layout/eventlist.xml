@@ -4,16 +4,22 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
 	android:background="@drawable/bgall">
-    
-
+    
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/hello" 
-        />
-    
-    <ListView android:id="@+id/Events_ListView" android:layout_height="wrap_content"
-				android:layout_width="fill_parent"></ListView>
-       
+        android:layout_marginTop="5dip"
+        android:gravity="center"
+        android:text="@string/Event_List_Title"
+        android:textColor="@android:color/white"
+        android:textSize="30dip" />
+
+    <ListView
+        android:id="@+id/Events_ListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:cacheColorHint="@android:color/transparent" >
+    </ListView>
 
 </LinearLayout>
