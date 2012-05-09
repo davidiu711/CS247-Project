@@ -47,8 +47,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
-        android:maxLength="800"
-        android:maxLines="15" />
+        android:maxLength="200"
+        android:maxLines="4" />
 
     <TextView
         android:id="@+id/Text_Create_Event_Address"

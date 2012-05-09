@@ -13,11 +13,12 @@
         android:text="@string/Event_List_Title"
         android:textColor="@android:color/white"
         android:textSize="30dip" />
+    
 
     <ListView
         android:id="@+id/Events_ListView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="375dip"
         android:background="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent" >
     </ListView>

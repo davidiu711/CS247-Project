@@ -88,7 +88,16 @@ public class Communicator {
                         SharedPreferences.Editor editor = preference.edit();
                         editor.putString("title", row.getString("name"));
                         editor.putString("time", row.getString("time"));
-                        
+                        /*
+                         * 
+                         * 
+                         * put more things in here.
+                         * 
+                         * 
+                         */
+                        /*this is the distance that I put into shared preferences. It's done. Don't touch please */
+                        Double dist = Utils.GetDistanceFromLatLon(lat, lon, Double.parseDouble(row.getString("lat")), Double.parseDouble(row.getString("lon")));              
+                        editor.putString("distance", dist.toString());
                         editor.commit();
                     }
                 } catch (NumberFormatException e) {

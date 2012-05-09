@@ -6,14 +6,28 @@
     android:orientation="vertical"
     android:paddingLeft="5dip" >
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
     <TextView
         android:id="@+id/eventTitle"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:textSize="20dip"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
 
+    <TextView
+            android:id="@+id/eventDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:textSize="18dip"
+            android:textColor="@android:color/white"
+            android:layout_marginLeft="50dip" />
+    </LinearLayout>
+    
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
@@ -22,6 +36,13 @@
 
         <TextView
             android:id="@+id/eventTime"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:textSize="18dp"
+            android:textColor="@android:color/white" />
+        
+        <TextView
+            android:id="@+id/eventDate"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:textSize="18dp"

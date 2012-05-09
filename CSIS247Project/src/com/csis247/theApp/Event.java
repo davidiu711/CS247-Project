@@ -40,6 +40,9 @@ public class Event extends MapActivity {
     /** the time of the event */
     TextView time;
     
+    /** the date of the event */
+    TextView date;
+    
     /** the distance to the event from the user's location */
     TextView distance;
    
@@ -121,8 +124,9 @@ public class Event extends MapActivity {
         
         title = (TextView) findViewById(R.id.Text_EventActivity_Title);
         description = (TextView) findViewById(R.id.Text_EventActivity_Description);
-        time = (TextView) findViewById(R.id.Text_EventActivity_Time);
-        distance = (TextView) findViewById(R.id.Text_EventActivity_Distance);
+        time = (TextView) findViewById(R.id.Text_EventActivity_Time_Number);
+        date = (TextView) findViewById(R.id.Text_EventActivity_Date_Number);
+        distance = (TextView) findViewById(R.id.Text_EventActivity_Distance_Number);
         map = (MapView) findViewById(R.id.Event_Map);
         map.setBuiltInZoomControls(true);
         mapController = map.getController();
@@ -132,37 +136,15 @@ public class Event extends MapActivity {
      * the shared preferences.
      */
     private void loadEventInfo(Integer position) {
-       
-    	try {
-            String link = "http://i.cs.hku.hk/~stlee/gowhere.php";
-			JSONArray result = new JSONArray(Utils.getData(link));
-			for (int i = 0; i < result.length(); i++) {
-				JSONObject row = result.getJSONObject(i);
-				SharedPreferences preference = context.getSharedPreferences(Integer.toString(i), Context.MODE_PRIVATE);
-				SharedPreferences.Editor editor = preference.edit();
-				editor.putString("title", row.getString("name"));
-				editor.putString("time", row.getString("time"));
-				editor.commit();
-			}
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
         title.setText(eventInfo.getString("title", "PROBLEM"));
         description.setText(eventInfo.getString("description", "PROBLEM"));
-        time.setText(eventInfo.getString("time", "PROBLEM"));
-        distance.setText(eventInfo.getString("distance", "PROBLEM"));
-        //will also want to get lat and lon to display the event on the map.
+        date.setText(" " + eventInfo.getString("date", "PROBLEM"));
+        time.setText(" " + eventInfo.getString("time", "PROBLEM"));
         
+        Double dist = Utils.GetDistanceFromLatLon(lat, lon, Double.parseDouble(eventInfo.getString("lat", "0"))
+                        , Double.parseDouble(eventInfo.getString("lon", "0")));              
+        distance.setText(" " + dist.toString());
     }
 
     @Override
@@ -177,7 +159,7 @@ public class Event extends MapActivity {
         map.getOverlays().clear();
         
         //create new point on map and a new overlay item. Should use lat/lon from shared preference. Currently this is for debugging.
-        GeoPoint event = new GeoPoint((int) (33.856 * 1E6), (int) (-117.737 * 1E6));
+        GeoPoint event = new GeoPoint((int) (eventInfo.getFloat("lat",0) * 1E6), (int) (eventInfo.getFloat("lon", 0) * 1E6));
         OverlayItem overlayItem = new OverlayItem(event, eventInfo.getString("title", "you done fucked up"), "");
         
         //create second point on map. this is the user's current location.
@@ -210,6 +192,10 @@ public class Event extends MapActivity {
                 if(extras != null) {
                     lat = extras.getDouble("lat");
                     lon = extras.getDouble("lon");
+
+                    Double dist = Utils.GetDistanceFromLatLon(lat, lon, Double.parseDouble(eventInfo.getString("lat", "0"))
+                                    , Double.parseDouble(eventInfo.getString("lon", "0")));              
+                    distance.setText(" " + dist.toString());
 
                     updateMap();
 

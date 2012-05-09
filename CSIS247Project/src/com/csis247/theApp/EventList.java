@@ -108,10 +108,10 @@ public class EventList extends Activity {
 
             ConcurrentHashMap<String, String> singleEventMap = new ConcurrentHashMap<String, String>();
 
-            singleEventMap.put("title", eventInfo.getString("title", "PROBLEM"));
-            singleEventMap.put("time", eventInfo.getString("time", "PROBLEM"));
+            singleEventMap.put("title",eventInfo.getString("title", "PROBLEM"));
+            singleEventMap.put("time", getResources().getString(R.string.Event_Item_Time) + " " + eventInfo.getString("time", "PROBLEM"));
+            singleEventMap.put("date", getResources().getString(R.string.Event_Item_Date) + " " + eventInfo.getString("date", "PROBLEM"));
             singleEventMap.put("distance", eventInfo.getString("distance", "PROBLEM"));
-            System.out.println(singleEventMap.get("title"));
             listItems.add(singleEventMap);
         }
 
@@ -119,8 +119,8 @@ public class EventList extends Activity {
          * map values to specific fields in the eventlistevent layout 
          * add image to layout*/
         events.setAdapter( new SimpleAdapter(this, listItems, R.layout.eventlistevent
-                        , new String[] {"title", "time", "distance"}
-        , new int[] {R.id.eventTitle, R.id.eventTime, R.id.eventDistance} ));
+                        , new String[] {"title", "time", "distance", "date"}
+        , new int[] {R.id.eventTitle, R.id.eventTime, R.id.eventDistance, R.id.eventDate} ));
 
         // define what happens when one of the list items is clicked.
         events.setOnItemClickListener(new ClickListener());
