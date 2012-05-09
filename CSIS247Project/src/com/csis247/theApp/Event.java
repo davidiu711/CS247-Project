@@ -132,7 +132,7 @@ public class Event extends MapActivity {
      * the shared preferences.
      */
     private void loadEventInfo(Integer position) {
-       /* 
+       
     	try {
             String link = "http://i.cs.hku.hk/~stlee/gowhere.php";
 			JSONArray result = new JSONArray(Utils.getData(link));
@@ -156,7 +156,7 @@ public class Event extends MapActivity {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
         title.setText(eventInfo.getString("title", "PROBLEM"));
         description.setText(eventInfo.getString("description", "PROBLEM"));
         time.setText(eventInfo.getString("time", "PROBLEM"));
