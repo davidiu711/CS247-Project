@@ -24,6 +24,8 @@ import android.text.InputFilter;
 import android.text.Layout;
 import android.text.format.DateFormat;
 
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -288,6 +290,25 @@ public class CreateEvent extends Activity implements OnClickListener{
                         .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
         return cursor.getString(column_index);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.preferencesmenu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        // Handle item selection
+        switch (item.getItemId()) {
+        case R.id.prefs:
+            Intent i = new Intent(this, Prefs.class);
+            startActivity(i);
+
+        }
+        return true;
     }
 
 }
