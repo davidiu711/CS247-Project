@@ -25,6 +25,8 @@ public class EventList extends Activity {
     /** A listview of all events that needs to be populated from shared preferences. */
     ListView events;
 
+    boolean loadingDone = false;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,7 +39,7 @@ public class EventList extends Activity {
         events = (ListView) findViewById(R.id.Events_ListView);
 
         //start an asynchronous process to talk to the server and download events.
-            new RefreshEvents(context, this).execute();
+        new RefreshEvents(context, this).execute();
     }
 
     @Override
@@ -60,11 +62,21 @@ public class EventList extends Activity {
 
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
 
-        loadEventList();
+        loadingDone = getIntent().getBooleanExtra("loadingDone", true);
+        if (loadingDone) {
+            loadEventList();
+        }
 
+    }
+    
+    
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
     }
 
     /** Access data from shared preferences about each event downloaded
@@ -82,7 +94,7 @@ public class EventList extends Activity {
          */
         ArrayList<ConcurrentHashMap<String, String>> listItems 
         = new ArrayList<ConcurrentHashMap<String, String>>();
-        
+
         int numOfEvents = numberOfEvents.getInt("number", 0);
         System.out.println(numOfEvents);
 
@@ -96,10 +108,10 @@ public class EventList extends Activity {
 
             ConcurrentHashMap<String, String> singleEventMap = new ConcurrentHashMap<String, String>();
 
-            singleEventMap.put("title", eventInfo.getString("title", "PROBLEM"));
-            singleEventMap.put("time", eventInfo.getString("time", "PROBLEM"));
+            singleEventMap.put("title",eventInfo.getString("title", "PROBLEM"));
+            singleEventMap.put("time", getResources().getString(R.string.Event_Item_Time) + " " + eventInfo.getString("time", "PROBLEM"));
+            singleEventMap.put("date", getResources().getString(R.string.Event_Item_Date) + " " + eventInfo.getString("date", "PROBLEM"));
             singleEventMap.put("distance", eventInfo.getString("distance", "PROBLEM"));
-            System.out.println(singleEventMap.get("title"));
             listItems.add(singleEventMap);
         }
 
@@ -107,8 +119,8 @@ public class EventList extends Activity {
          * map values to specific fields in the eventlistevent layout 
          * add image to layout*/
         events.setAdapter( new SimpleAdapter(this, listItems, R.layout.eventlistevent
-                        , new String[] {"title", "time", "distance"}
-        , new int[] {R.id.eventTitle, R.id.eventTime, R.id.eventDistance} ));
+                        , new String[] {"title", "time", "distance", "date"}
+        , new int[] {R.id.eventTitle, R.id.eventTime, R.id.eventDistance, R.id.eventDate} ));
 
         // define what happens when one of the list items is clicked.
         events.setOnItemClickListener(new ClickListener());
