@@ -76,7 +76,7 @@ public class Communicator {
         JSONArray result = null;
 
         try {
-                    String link = "http://i.cs.hku.hk/~stlee/gowhere.php";
+                    String link = "http://i.cs.hku.hk/~stlee/gowhere_get_event.php";
                     result = new JSONArray(Utils.getData(link));
                     SharedPreferences numberOfEvents = callingContext.getSharedPreferences("numberOfEvents", Context.MODE_PRIVATE);
                     SharedPreferences.Editor numberOfEventsEditor = numberOfEvents.edit();
