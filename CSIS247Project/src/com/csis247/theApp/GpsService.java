@@ -214,7 +214,7 @@ public class GpsService extends Service {
                     gps.setAccuracy(100000);
                     locationChanged(gps);
                 }
-            }, 30000);
+            }, 15000);
             networkFirst = false;
             }
 
@@ -232,7 +232,7 @@ public class GpsService extends Service {
                     network.setAccuracy(100000);
                     locationChanged(network);
                 }
-            }, 30000);
+            }, 15000);
             gpsFirst = false;
             }
         }
