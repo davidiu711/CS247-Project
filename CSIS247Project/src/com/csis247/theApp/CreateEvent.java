@@ -221,7 +221,13 @@ public class CreateEvent extends Activity implements OnClickListener{
 
 
             if(isOnline()){
-                new UploadEvent(this, eventName, eventDescription, eventAddress, mTimeDisplay, mDateDisplay).execute();
+            	String eventTime, eventDate;
+            	eventTime = mHour+":"+mMinute+":00";
+            	eventDate = mYear+"-"+mMonth+"-"+mDay;
+            	Communicator com = new Communicator();
+            	
+            	com.communicate(eventName, eventDescription, eventAddress, eventTime, eventDate);
+                //new UploadEvent(eventName, eventDescription, eventAddress, mTimeDisplay, mDateDisplay).execute();
             } else {
                 AlertDialog alertDialog = new AlertDialog.Builder(this).create();
                 alertDialog.setTitle(this.getText(R.string.Create_Event_Alert_Dialog_Title));
