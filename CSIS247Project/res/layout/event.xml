@@ -100,6 +100,6 @@
         android:id="@+id/Event_Map"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:apiKey="0SSIxJTKJsHtfGyTOT1qCzix0QDQzP8j0RuAmmw"
+        android:apiKey="0SSIxJTKJsHtmzxXjWcBH46sH8nhO6ZNYinPheQ"
         android:clickable="true" />
 </LinearLayout>
