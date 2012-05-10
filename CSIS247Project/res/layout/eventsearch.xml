@@ -16,8 +16,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dip"
         android:text="@string/Search_Where"
+        android:paddingLeft="5dip"
         android:textColor="@android:color/white"
+        android:textSize="19dip"
+        android:textStyle="bold" 
     />
+    
     <Spinner 
         android:id="@+id/Spinner_Location"
         android:layout_width="fill_parent"
@@ -28,28 +32,30 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:id="@+id/Text_Search_Specify_Location"
+        android:paddingLeft="5dip"
         android:visibility="gone"
+        android:textColor="@android:color/white"
+        android:textSize="19dip" 
     />
     
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:id="@+id/Edit_Search_Specify_Location"
         android:visibility="gone"
         android:inputType="text"      
-    />
-        
-    
+    />    
     
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:text="@string/Search_Distance"
-        android:textColor="@android:color/white" 
+        android:layout_marginTop="5dip"
+        android:paddingLeft="5dip"
+        android:textColor="@android:color/white"
+        android:textSize="19dp"
+        android:textStyle="bold" 
     />
     
     <Spinner 
@@ -61,43 +67,90 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:id="@+id/Text_Search_Specify_Distance"
+        android:paddingLeft="5dip"
         android:visibility="gone"
+        android:textColor="@android:color/white"
+        android:textSize="19dp" 
     />
     
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
         android:id="@+id/Edit_Search_Specify_Distance"
         android:visibility="gone"
-        android:inputType="number"      
+        android:inputType="number"  
+   
     />
     
+    <TextView
+        android:id="@+id/Text_Create_Event_Time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Create_Event_Time"
+        android:paddingLeft="5dip"
+		android:textColor="@android:color/white"
+		android:textSize="19dip"
+		android:textStyle="bold" />
+    
+    <LinearLayout
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    >
     <TextView android:id="@+id/Text_Event_Search_timeDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:paddingLeft="5dip"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"/>
     <Button android:id="@+id/Button_Event_Search_pickTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Search_Change_Time_Button"/>
+        android:text="@string/Search_Change_Time_Button"
+        android:textSize="17dp"
+        android:layout_marginLeft="20dip"/>
+    </LinearLayout>
     
+    <TextView
+        android:id="@+id/Text_Create_Event_Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Create_Event_Date"
+        android:paddingLeft="5dip"
+        android:textColor="@android:color/white"
+		android:textSize="19dip"
+        android:textStyle="bold" /> 
+     
+    <LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+     >
     <TextView android:id="@+id/Text_Event_Search_dateDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""/>
+        android:paddingLeft="5dip"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"/>
     <Button android:id="@+id/Button_Event_Search_pickDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Search_Change_Date_Button"/>
+        android:text="@string/Search_Change_Date_Button"
+        android:textSize="17dp"
+        android:layout_marginLeft="20dip"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/Button_Event_Search_findEvents"
-        android:layout_width="wrap_content"
+        android:layout_width="200dip"
         android:layout_height="wrap_content"
-        android:text="@string/Search_Find_Events_Button" />
+        android:text="@string/Search_Find_Events_Button"
+        android:textSize="22dip"
+        android:layout_marginTop="15dip"
+        android:layout_gravity="center" />
 
 </LinearLayout>
 </ScrollView>

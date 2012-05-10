@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -20,6 +21,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -83,10 +86,13 @@ public class EventSearch extends Activity {
     private int mMonth;
     private int mDay;
 
+    Activity activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        activity = this;
 
         setContentView(R.layout.eventsearch);
 
@@ -166,6 +172,9 @@ public class EventSearch extends Activity {
 
             @Override
             public void onClick(View v) {
+                
+                if (isOnline()) {
+                
                 //TODO store inputed values in sharedPreferences so that they can be used in the search query.
 
                 SharedPreferences searchCriteria = context.getSharedPreferences("search", Context.MODE_PRIVATE);
@@ -187,7 +196,14 @@ public class EventSearch extends Activity {
                                 
 
                 Intent eventList = new Intent(context, EventList.class);
+                eventList.putExtra("loadingDone", false);
                 startActivity(eventList);
+                } else {
+                     AlertDialog alertDialog = new AlertDialog.Builder(activity).create();
+                alertDialog.setTitle(activity.getText(R.string.Create_Event_Alert_Dialog_Title));
+                alertDialog.setMessage(activity.getText(R.string.Create_Event_Alert_Dialog_Text));
+                alertDialog.show();
+                }
 
             }
         });
@@ -203,6 +219,17 @@ public class EventSearch extends Activity {
         // display the current time and date
         updateDisplay();
 
+    }
+    
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        }
+        return false;
     }
 
     // the callback received when the user "sets" the time in the dialog
