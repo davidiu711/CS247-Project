@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, CSIS247ProjectActivity!</string>
     <string name="app_name">GoWhere?</string>
 
     <string name="Miles">miles</string>
     <string name="Kilometers">kilometers</string>
-    
-    <!-- Main Screen Button Labels -->
-    <string name="event_button_label">Find Events</string>
-    <string name="create_event_button_label">Create Event</string>
-    
-    
     
     <!-- Event Creation Strings -->
     <string name="Create_Event_Name">Event Name</string>
@@ -23,12 +16,32 @@
     <string name="Create_Event_Change_Date_Button">Change Date</string>
     <string name="Browse_Picture_Button">Browse Pictures</string>
     <string name="Submit_Button">Submit</string>
-    
-    
+    <string name="Create_Event_Alert_Dialog_Title">No Internet Connection</string>
+    <string name="Create_Event_Alert_Dialog_Text">Your device is not connected to the internet.</string>
+    <!-- Event List Strings -->
+    <string name="Event_List_Title">Events</string>
     
     <!-- EventList Item Strings -->
     <string name="Image_Content_Description">Event Icon</string>
+    <string name="Event_Item_Time">Time:</string>
+    <string name="Event_Item_Date">Date:</string>
+    <string name="Event_Item_Distance">away.</string>
     
+    
+    <!-- Event Class Labels -->
+    <string name="Event_Class_Distance">Distance:</string>
+    <string name="Event_Class_Time">Time:</string>
+    <string name="Event_Class_Date">Date:</string>
+    <string name="Event_Class_Description">Description</string>
+    
+    <!-- Refresh Events Strings -->
+    <string name="Refresh_Events_Dialog">Loading&#8230;</string>
+    
+    <!-- Upload Event Strings -->
+    <string name="Upload_Event_Dialog">Uploading&#8230;</string>
+    <string name="Upload_Event_Alert_Dialog_Title">No address found</string>
+    <string name="Upload_Event_Alert_Dialog_Text">No location could be resolved from the given address.
+        Please check the address and try again.</string>
     
     
     <!-- Menu Labels -->
@@ -45,9 +58,8 @@
         <item>A Specific Address</item>
         <item>Other</item>       
     </string-array>
-	<string name="Search_Specify_Location">Please specify a location.</string> 
-	<string name="Search_Specify_Address">Please specify an address.</string>   
-	
+	<string name="Search_Specify_Location">Please specify a location</string> 
+	<string name="Search_Specify_Address">Please specify an address</string>
 	<string name="Search_Distance">How far away from there would you like to search?</string>  
     <string-array name="distance_array">
         <item>1 mile</item>
@@ -63,8 +75,8 @@
     </string-array>
     <string name="Search_Specify_Distance">Please specify a distance in</string>
     
-    <string name="Search_Change_Time_Button">Pick a different time</string>
-    <string name="Search_Change_Date_Button">Pick a different date</string>
+    <string name="Search_Change_Time_Button">Change Time</string>
+    <string name="Search_Change_Date_Button">Change Date</string>
     <string name="Search_Find_Events_Button">Find Events</string>
     
     

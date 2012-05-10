@@ -11,12 +11,16 @@ import java.util.GregorianCalendar;
 import org.apache.http.client.ClientProtocolException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -74,11 +78,6 @@ public class CreateEvent extends Activity implements OnClickListener{
     private int mYear;
     private int mMonth;
     private int mDay;
-    
-    private String event_name;
-    private String event_description;
-    private String event_address;
-    private String event_datetime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +101,7 @@ public class CreateEvent extends Activity implements OnClickListener{
         submit.setOnClickListener(this);
 
         picture = (Button) findViewById(R.id.Button_Create_Event_Picture);
-        picture.setOnClickListener(this);
+        picture.setVisibility(View.GONE);
 
         /* button and textview for selecting and displaying event time */
         mTimeDisplay = (TextView) findViewById(R.id.Text_Create_Chosen_Time);
@@ -218,31 +217,39 @@ public class CreateEvent extends Activity implements OnClickListener{
 
             /* TODO send sumbitted data to server. Use getData function in Utils class.
              *  Use selectedImagePath to access the picture file for upload. */
-        	try {
-        		String link, temp;
-            	event_name = URLEncoder.encode(eventName.getText().toString(), "UTF-8");
-        		event_description = URLEncoder.encode(eventDescription.getText().toString(), "UTF-8");
-        		event_address = URLEncoder.encode(eventAddress.getText().toString(), "UTF-8");
-        		temp = mYear+"-"+mMonth+"-"+mDay+" "+mHour+":"+mMinute+":00";
-        		event_datetime = URLEncoder.encode(temp, "UTF-8");
-        		System.out.println("datetime: "+event_datetime);
-        		link = "http://i.cs.hku.hk/~stlee/gowhere_create_event.php?event_name="+event_name+"&event_description="+event_description+"&event_address="+event_address+"&event_datetime="+event_datetime;
-        		System.out.println("link: "+link);
-        		Utils.getData(link);
-			} catch (NumberFormatException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
+
+
+            if(isOnline()){
+            	String eventTime, eventDate;
+            	eventTime = mHour+":"+mMinute+":00";
+            	eventDate = mYear+"-"+mMonth+"-"+mDay;
+            	Communicator com = new Communicator();
+            	
+            	com.communicate(eventName, eventDescription, eventAddress, eventTime, eventDate);
+                //new UploadEvent(eventName, eventDescription, eventAddress, mTimeDisplay, mDateDisplay).execute();
+            } else {
+                AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                alertDialog.setTitle(this.getText(R.string.Create_Event_Alert_Dialog_Title));
+                alertDialog.setMessage(this.getText(R.string.Create_Event_Alert_Dialog_Text));
+                alertDialog.show();
+            }
             break;
         }
 
     }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                        (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        if (netInfo != null && netInfo.isConnected()) {
+            return true;
+        }
+        return false;
+    }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {

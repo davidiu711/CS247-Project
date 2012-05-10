@@ -44,11 +44,8 @@ public class RefreshEvents extends AsyncTask<Void, Void, Void>{
          * events are being downloaded. */
         progressDisplay = new ProgressDialog(callingActivity);
         progressDisplay.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDisplay.setMessage("Loading...");
+        progressDisplay.setMessage(callingContext.getResources().getText(R.string.Refresh_Events_Dialog));
         progressDisplay.show();
-
-
-        //TODO prompt user to continue without GPS usage. If the GPS is not on then tell the user.
 
     }
     
